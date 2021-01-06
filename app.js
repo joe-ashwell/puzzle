@@ -107,16 +107,22 @@ class App {
   }
 
   static drop(e) {
+  
     const draggedData = e.dataTransfer.getData('text/plain')
     const [draggedDataURL, draggedDataId] = draggedData.split(',');
+
+    const previousPuzzlePiece = document.getElementById(`${draggedDataId}`);
+    previousPuzzlePiece.innerHTML = `YOOOOOOOO`;
+    
     e.target.style.backgroundImage = `${draggedDataURL}`;
     console.log(`e.target: ${e.target.id}`);
     console.log(`e: ${draggedDataId}`);
     if (e.target.id === draggedDataId) {
       console.log('yes!')
+      
     } else {
       console.log('nope!')
-    }
+    } 
   }
 }
 
