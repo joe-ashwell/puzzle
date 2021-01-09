@@ -8,50 +8,50 @@ class PuzzlePiece {
 class PuzzlePiecePanel {
   puzzleImageList = [
     // Row 1
-    new PuzzlePiece('gorilla_img/gorilla_row1_col1.jpg', 1),
-    new PuzzlePiece('gorilla_img/gorilla_row1_col2.jpg', 2),
-    new PuzzlePiece('gorilla_img/gorilla_row1_col3.jpg', 3),
-    new PuzzlePiece('gorilla_img/gorilla_row1_col4.jpg', 4),
+    new PuzzlePiece("gorilla_img/gorilla_row1_col1.jpg", 1),
+    new PuzzlePiece("gorilla_img/gorilla_row1_col2.jpg", 2),
+    new PuzzlePiece("gorilla_img/gorilla_row1_col3.jpg", 3),
+    new PuzzlePiece("gorilla_img/gorilla_row1_col4.jpg", 4),
     // Row 2
-    new PuzzlePiece('gorilla_img/gorilla_row2_col1.jpg', 5),
-    new PuzzlePiece('gorilla_img/gorilla_row2_col2.jpg', 6),
-    new PuzzlePiece('gorilla_img/gorilla_row2_col3.jpg', 7),
-    new PuzzlePiece('gorilla_img/gorilla_row2_col4.jpg', 8),
+    new PuzzlePiece("gorilla_img/gorilla_row2_col1.jpg", 5),
+    new PuzzlePiece("gorilla_img/gorilla_row2_col2.jpg", 6),
+    new PuzzlePiece("gorilla_img/gorilla_row2_col3.jpg", 7),
+    new PuzzlePiece("gorilla_img/gorilla_row2_col4.jpg", 8),
     // Row 3
-    new PuzzlePiece('gorilla_img/gorilla_row3_col1.jpg', 9),
-    new PuzzlePiece('gorilla_img/gorilla_row3_col2.jpg', 10),
-    new PuzzlePiece('gorilla_img/gorilla_row3_col3.jpg', 11),
-    new PuzzlePiece('gorilla_img/gorilla_row3_col4.jpg', 12),
+    new PuzzlePiece("gorilla_img/gorilla_row3_col1.jpg", 9),
+    new PuzzlePiece("gorilla_img/gorilla_row3_col2.jpg", 10),
+    new PuzzlePiece("gorilla_img/gorilla_row3_col3.jpg", 11),
+    new PuzzlePiece("gorilla_img/gorilla_row3_col4.jpg", 12),
     // Row 4
-    new PuzzlePiece('gorilla_img/gorilla_row4_col1.jpg', 13),
-    new PuzzlePiece('gorilla_img/gorilla_row4_col2.jpg', 14),
-    new PuzzlePiece('gorilla_img/gorilla_row4_col3.jpg', 15),
-    new PuzzlePiece('gorilla_img/gorilla_row4_col4.jpg', 16)
-  ]
+    new PuzzlePiece("gorilla_img/gorilla_row4_col1.jpg", 13),
+    new PuzzlePiece("gorilla_img/gorilla_row4_col2.jpg", 14),
+    new PuzzlePiece("gorilla_img/gorilla_row4_col3.jpg", 15),
+    new PuzzlePiece("gorilla_img/gorilla_row4_col4.jpg", 16),
+  ];
 
   constructor() {}
 
   randomArraySort() {
-    const sortedPuzzleArray = this.puzzleImageList.sort( () => {
-    return 0.5 - Math.random();
-    });  
+    const sortedPuzzleArray = this.puzzleImageList.sort(() => {
+      return 0.5 - Math.random();
+    });
     return sortedPuzzleArray;
   }
 
   render() {
-    const puzzlePiecePanel = document.querySelector('section.selection-panel');
+    const puzzlePiecePanel = document.querySelector("section.selection-panel");
 
-    this.randomArraySort().forEach(puzzlePiece => {
-      const puzzlePieceItem = document.createElement('div');
+    this.randomArraySort().forEach((puzzlePiece) => {
+      const puzzlePieceItem = document.createElement("div");
       puzzlePieceItem.style.backgroundImage = `url('${puzzlePiece.url}')`;
       puzzlePieceItem.draggable = true;
-      puzzlePieceItem.classList.add('puzzle-piece');
-      puzzlePieceItem.setAttribute('id', `${puzzlePiece.id}`);
-      puzzlePieceItem.addEventListener('dragstart', App.dragStart.bind(this));
-      puzzlePieceItem.addEventListener('dragenter', App.dragEnter.bind(this));
-      puzzlePieceItem.addEventListener('dragover', App.dragOver.bind(this));
-      puzzlePieceItem.addEventListener('dragleave', App.dragLeave.bind(this));
-      puzzlePieceItem.addEventListener('drop', App.drop.bind(this));
+      puzzlePieceItem.classList.add("puzzle-piece");
+      puzzlePieceItem.setAttribute("id", `${puzzlePiece.id}`);
+      puzzlePieceItem.addEventListener("dragstart", App.dragStart.bind(this));
+      puzzlePieceItem.addEventListener("dragenter", App.dragEnter.bind(this));
+      puzzlePieceItem.addEventListener("dragover", App.dragOver.bind(this));
+      puzzlePieceItem.addEventListener("dragleave", App.dragLeave.bind(this));
+      puzzlePieceItem.addEventListener("drop", App.drop.bind(this));
       puzzlePiecePanel.append(puzzlePieceItem);
     });
 
@@ -63,18 +63,26 @@ class PuzzleMain {
   constructor() {}
 
   render() {
-    const mainPuzzleSection = document.querySelector('section.puzzle-panel');
+    const mainPuzzleSection = document.querySelector("section.puzzle-panel");
 
     for (let i = 0; i < new PuzzlePiecePanel().puzzleImageList.length; i++) {
-      const puzzlePieceLocation = document.createElement('div');
-      puzzlePieceLocation.classList.add('puzzle-piece-location');
-      puzzlePieceLocation.draggable = true;
-      puzzlePieceLocation.setAttribute('id', `${i + 1}`);
-      puzzlePieceLocation.addEventListener('dragstart', App.dragStart.bind(this));
-      puzzlePieceLocation.addEventListener('dragenter', App.dragEnter.bind(this));
-      puzzlePieceLocation.addEventListener('dragover', App.dragOver.bind(this));
-      puzzlePieceLocation.addEventListener('dragleave', App.dragLeave.bind(this));
-      puzzlePieceLocation.addEventListener('drop', App.drop.bind(this));
+      const puzzlePieceLocation = document.createElement("div");
+      puzzlePieceLocation.classList.add("puzzle-piece-location");
+      puzzlePieceLocation.setAttribute("id", `${i + 1}`);
+      puzzlePieceLocation.addEventListener(
+        "dragenter",
+        App.dragEnter.bind(this)
+      );
+      puzzlePieceLocation.addEventListener("dragover", App.dragOver.bind(this));
+      puzzlePieceLocation.addEventListener(
+        "dragleave",
+        App.dragLeave.bind(this)
+      );
+      puzzlePieceLocation.addEventListener("drop", App.drop.bind(this));
+      puzzlePieceLocation.addEventListener(
+        "dblclick",
+        App.doubleClick.bind(this)
+      );
       mainPuzzleSection.append(puzzlePieceLocation);
     }
     return mainPuzzleSection;
@@ -87,8 +95,15 @@ class App {
     new PuzzleMain().render();
   }
 
+  static doubleClick(e) {
+    e.target.style.backgroundImage = ``;
+  }
+
   static dragStart(e) {
-    e.dataTransfer.setData('text/plain', [e.target.style.backgroundImage, e.target.id]);
+    e.dataTransfer.setData("text/plain", [
+      e.target.style.backgroundImage,
+      e.target.id,
+    ]);
     // console.log(e.target.style.backgroundImage);
   }
 
@@ -107,22 +122,20 @@ class App {
   }
 
   static drop(e) {
-  
-    const draggedData = e.dataTransfer.getData('text/plain')
-    const [draggedDataURL, draggedDataId] = draggedData.split(',');
+    const draggedData = e.dataTransfer.getData("text/plain");
+    const [draggedDataURL, draggedDataId] = draggedData.split(",");
 
     const previousPuzzlePiece = document.getElementById(`${draggedDataId}`);
-    previousPuzzlePiece.innerHTML = `YOOOOOOOO`;
-    
+    previousPuzzlePiece.classList.add("used-element");
+
     e.target.style.backgroundImage = `${draggedDataURL}`;
     console.log(`e.target: ${e.target.id}`);
     console.log(`e: ${draggedDataId}`);
     if (e.target.id === draggedDataId) {
-      console.log('yes!')
-      
+      console.log("yes!");
     } else {
-      console.log('nope!')
-    } 
+      console.log("nope!");
+    }
   }
 }
 

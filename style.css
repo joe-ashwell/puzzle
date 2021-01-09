@@ -13,6 +13,7 @@ section.selection-panel {
   flex-wrap: wrap;
   width: 20vw;
   height: max-content;
+  background-color: black;
 }
 
 div.puzzle-piece {
@@ -44,5 +45,8 @@ div.puzzle-piece-location {
   position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  cursor: pointer;
+}
+
+.used-element {
+  opacity: 0.2;
 }
