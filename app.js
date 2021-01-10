@@ -108,17 +108,20 @@ class EventHelper {
 
   render() {
     let keysPressed = [];
-    // const helperArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'];
 
     window.addEventListener("keydown", (event) => {
       keysPressed.push(event.key);
 
       if (keysPressed.includes("Control") && keysPressed.length > 1) {
         const item = document.querySelector(
-          `.puzzle-piece[data-initial-id="${keysPressed[1]}"]`
+          `.puzzle-piece[data-initial-id="${
+            keysPressed[keysPressed.length - 1]
+          }"]`
         );
         const otherItem = document.querySelector(
-          `.puzzle-piece-location[data-initial-id="${keysPressed[1]}"]`
+          `.puzzle-piece-location[data-initial-id="${
+            keysPressed[keysPressed.length - 1]
+          }"]`
         );
 
         if (item.dataset.initialId === `${keysPressed[1]}`) {
@@ -129,9 +132,12 @@ class EventHelper {
           otherItem.style.border = "";
           item.style.border = "";
         }, 1000);
-
         keysPressed = [];
-        console.log(keysPressed);
+      } else if (
+        (!keysPressed.includes("Control") && keysPressed.length > 1) ||
+        (keysPressed.includes("Control") && keysPressed.length > 2)
+      ) {
+        keysPressed = [];
       }
     });
   }
