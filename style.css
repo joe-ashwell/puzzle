@@ -23,7 +23,7 @@ section.selection-panel {
   flex-wrap: wrap;
   width: 20vw;
   height: max-content;
-  background-color: black;
+  background-color: blue;
 }
 
 div.puzzle-piece {

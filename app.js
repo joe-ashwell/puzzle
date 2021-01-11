@@ -125,12 +125,14 @@ class EventHelper {
         );
 
         if (item.dataset.initialId === `${keysPressed[1]}`) {
-          otherItem.style.border = "solid 5px blue";
-          item.style.border = "solid 5px blue";
+          otherItem.style.backgroundColor = "blue";
+          otherItem.style.opacity = "0.75";
+          item.style.opacity = "0.45";
         }
         setTimeout(() => {
-          otherItem.style.border = "";
-          item.style.border = "";
+          otherItem.style.backgroundColor = "white";
+          otherItem.style.opacity = "1";
+          item.style.opacity = "1";
         }, 1000);
         keysPressed = [];
       } else if (
@@ -151,10 +153,10 @@ class App {
   }
 
   static doubleClick(e) {
-    e.target.style.backgroundImage = ``;
     document
-      .querySelector(`[data-initial-id="${e.target.dataset.cameFromId}"]`)
-      .classList.remove("used-element");
+    .querySelector(`[data-initial-id="${e.target.dataset.cameFromId}"]`)
+    .style.backgroundImage = `${e.target.style.backgroundImage}`;
+    e.target.style.backgroundImage = ``;
   }
 
   static dragStart(e) {
@@ -181,7 +183,9 @@ class App {
     const previousPuzzlePiece = document.querySelector(
       `.puzzle-piece[data-initial-id="${draggedDataId}"]`
     );
-    previousPuzzlePiece.classList.add("used-element");
+    // previousPuzzlePiece.classList.add("used-element");
+    previousPuzzlePiece.style.backgroundImage = ``;
+    previousPuzzlePiece.style.backgroundColor = `black`;
 
     e.target.dataset.cameFromId = draggedDataId;
 
