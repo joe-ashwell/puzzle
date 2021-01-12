@@ -111,15 +111,17 @@ class EventHelper {
         );
 
         if (puzzlePiece.dataset.initialId === `${event.key}`) {
-          puzzlePieceLocation.style.backgroundColor = "#F44E3F";
-          puzzlePieceLocation.style.opacity = "0.75";
-          puzzlePiece.style.opacity = "0.45";
+          puzzlePieceLocation.style.backgroundColor = "#273469";
+          puzzlePieceLocation.style.opacity = "0.95";
+          puzzlePieceLocation.style.color = "white";
+          puzzlePiece.style.opacity = "0.05";
         } else {
           return;
         }
         setTimeout(() => {
           puzzlePieceLocation.style.backgroundColor = "#FAFAFF";
           puzzlePieceLocation.style.opacity = "1";
+          puzzlePieceLocation.style.color = "black";
           puzzlePiece.style.opacity = "1";
         }, 1000);
     });
