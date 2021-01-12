@@ -47,7 +47,7 @@ class PuzzlePiecePanel {
       puzzlePieceItem.draggable = true;
       puzzlePieceItem.classList.add("puzzle-piece");
       puzzlePieceItem.dataset.initialId = `${puzzlePiece.id}`;
-      puzzlePieceItem.addEventListener("dragstart", App.dragStart.bind(this));
+      puzzlePieceItem.addEventListener("dragstart", EventHelper.dragStart.bind(this));
       puzzlePiecePanel.append(puzzlePieceItem);
     });
   }
@@ -80,22 +80,17 @@ class PuzzleMain {
     for (let i = 0; i < new PuzzlePiecePanel().puzzleImageList.length; i++) {
       const puzzlePieceLocation = document.createElement("div");
       puzzlePieceLocation.classList.add("puzzle-piece-location");
-      // puzzlePieceLocation.setAttribute("id", `${i + 1}`);
       puzzlePieceLocation.dataset.initialId = `${helperArray[i]}`;
       puzzlePieceLocation.innerText = `${helperArray[i]}`;
       puzzlePieceLocation.addEventListener(
         "dragenter",
-        App.dragEnter.bind(this)
+        EventHelper.dragEnter.bind(this)
       );
-      puzzlePieceLocation.addEventListener("dragover", App.dragOver.bind(this));
-      puzzlePieceLocation.addEventListener(
-        "dragleave",
-        App.dragLeave.bind(this)
-      );
-      puzzlePieceLocation.addEventListener("drop", App.drop.bind(this));
+      puzzlePieceLocation.addEventListener("dragover", EventHelper.dragOver.bind(this));
+      puzzlePieceLocation.addEventListener("drop", EventHelper.drop.bind(this));
       puzzlePieceLocation.addEventListener(
         "dblclick",
-        App.doubleClick.bind(this)
+        EventHelper.doubleClick.bind(this)
       );
       mainPuzzleSection.append(puzzlePieceLocation);
     }
@@ -107,49 +102,27 @@ class EventHelper {
   constructor() {}
 
   render() {
-    let keysPressed = [];
-
     window.addEventListener("keydown", (event) => {
-      keysPressed.push(event.key);
-
-      if (keysPressed.includes("Control") && keysPressed.length > 1) {
-        const item = document.querySelector(
-          `.puzzle-piece[data-initial-id="${
-            keysPressed[keysPressed.length - 1]
-          }"]`
+        const puzzlePiece = document.querySelector(
+          `.puzzle-piece[data-initial-id="${event.key}"]`
         );
-        const otherItem = document.querySelector(
-          `.puzzle-piece-location[data-initial-id="${
-            keysPressed[keysPressed.length - 1]
-          }"]`
+        const puzzlePieceLocation = document.querySelector(
+          `.puzzle-piece-location[data-initial-id="${event.key}"]`
         );
 
-        if (item.dataset.initialId === `${keysPressed[1]}`) {
-          otherItem.style.backgroundColor = "blue";
-          otherItem.style.opacity = "0.75";
-          item.style.opacity = "0.45";
+        if (puzzlePiece.dataset.initialId === `${event.key}`) {
+          puzzlePieceLocation.style.backgroundColor = "#F44E3F";
+          puzzlePieceLocation.style.opacity = "0.75";
+          puzzlePiece.style.opacity = "0.45";
+        } else {
+          return;
         }
         setTimeout(() => {
-          otherItem.style.backgroundColor = "white";
-          otherItem.style.opacity = "1";
-          item.style.opacity = "1";
+          puzzlePieceLocation.style.backgroundColor = "#FAFAFF";
+          puzzlePieceLocation.style.opacity = "1";
+          puzzlePiece.style.opacity = "1";
         }, 1000);
-        keysPressed = [];
-      } else if (
-        (!keysPressed.includes("Control") && keysPressed.length > 1) ||
-        (keysPressed.includes("Control") && keysPressed.length > 2)
-      ) {
-        keysPressed = [];
-      }
     });
-  }
-}
-
-class App {
-  static init() {
-    new PuzzlePiecePanel().render();
-    new PuzzleMain().render();
-    new EventHelper().render();
   }
 
   static doubleClick(e) {
@@ -157,6 +130,7 @@ class App {
     .querySelector(`[data-initial-id="${e.target.dataset.cameFromId}"]`)
     .style.backgroundImage = `${e.target.style.backgroundImage}`;
     e.target.style.backgroundImage = ``;
+    e.target.style.color = 'black';
   }
 
   static dragStart(e) {
@@ -174,8 +148,6 @@ class App {
     e.preventDefault();
   }
 
-  static dragLeave(e) {}
-
   static drop(e) {
     const draggedData = e.dataTransfer.getData("text/plain");
     const [draggedDataURL, draggedDataId] = draggedData.split(",");
@@ -183,13 +155,20 @@ class App {
     const previousPuzzlePiece = document.querySelector(
       `.puzzle-piece[data-initial-id="${draggedDataId}"]`
     );
-    // previousPuzzlePiece.classList.add("used-element");
     previousPuzzlePiece.style.backgroundImage = ``;
     previousPuzzlePiece.style.backgroundColor = `black`;
 
     e.target.dataset.cameFromId = draggedDataId;
-
     e.target.style.backgroundImage = `${draggedDataURL}`;
+    e.target.style.color = 'transparent';
+  }
+}
+
+class App {
+  static init() {
+    new PuzzlePiecePanel().render();
+    new PuzzleMain().render();
+    new EventHelper().render();
   }
 }
 
