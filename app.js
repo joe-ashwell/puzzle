@@ -158,7 +158,7 @@ class EventHelper {
       `.puzzle-piece[data-initial-id="${draggedDataId}"]`
     );
     previousPuzzlePiece.style.backgroundImage = ``;
-    previousPuzzlePiece.style.backgroundColor = `black`;
+    previousPuzzlePiece.style.backgroundColor = `#1E2749`;
 
     e.target.dataset.cameFromId = draggedDataId;
     e.target.style.backgroundImage = `${draggedDataURL}`;
