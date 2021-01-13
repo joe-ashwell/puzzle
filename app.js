@@ -109,21 +109,22 @@ class EventHelper {
         const puzzlePieceLocation = document.querySelector(
           `.puzzle-piece-location[data-initial-id="${event.key}"]`
         );
-
-        if (puzzlePiece.dataset.initialId === `${event.key}`) {
-          puzzlePieceLocation.style.backgroundColor = "#273469";
-          puzzlePieceLocation.style.opacity = "0.95";
-          puzzlePieceLocation.style.color = "white";
-          puzzlePiece.style.opacity = "0.05";
-        } else {
-          return;
+        if (!puzzlePieceLocation.style.backgroundImage) {
+          if (puzzlePiece.dataset.initialId === `${event.key}`) {
+            puzzlePieceLocation.style.backgroundColor = "#273469";
+            puzzlePieceLocation.style.opacity = "0.95";
+            puzzlePieceLocation.style.color = "white";
+            puzzlePiece.style.opacity = "0.05";
+          } else {
+            return;
+          }
+          setTimeout(() => {
+            puzzlePieceLocation.style.backgroundColor = "#FAFAFF";
+            puzzlePieceLocation.style.opacity = "1";
+            puzzlePieceLocation.style.color = "black";
+            puzzlePiece.style.opacity = "1";
+          }, 1000);
         }
-        setTimeout(() => {
-          puzzlePieceLocation.style.backgroundColor = "#FAFAFF";
-          puzzlePieceLocation.style.opacity = "1";
-          puzzlePieceLocation.style.color = "black";
-          puzzlePiece.style.opacity = "1";
-        }, 1000);
     });
   }
 
